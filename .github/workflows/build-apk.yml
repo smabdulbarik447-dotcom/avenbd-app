@@ -29,8 +29,9 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Set up Android SDK
-        uses: android-actions/setup-android@v3
+      # ubuntu-latest runners ship with the Android SDK preinstalled
+      # (ANDROID_HOME / ANDROID_SDK_ROOT already set, platform 35 + build-tools
+      # present), so no separate SDK-setup action is needed. Gradle uses it.
 
       - name: Sync Capacitor
         run: npx cap sync android
