@@ -24,6 +24,11 @@ android {
     }
 }
 
+// Compile Java sources as UTF-8 so Bengali string literals are preserved.
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = "UTF-8"
+}
+
 repositories {
     flatDir{
         dirs '../capacitor-cordova-android-plugins/src/main/libs', 'libs'

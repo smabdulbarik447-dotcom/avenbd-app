@@ -1,10 +1,16 @@
 package shop.avenbd.app;
 
+import android.Manifest;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.webkit.WebView;
 import android.webkit.WebSettings;
 import androidx.activity.OnBackPressedCallback;
+import androidx.core.app.ActivityCompat;
+import androidx.core.content.ContextCompat;
 import com.getcapacitor.BridgeActivity;
 import com.getcapacitor.BridgeWebViewClient;
 
@@ -12,6 +18,16 @@ public class MainActivity extends BridgeActivity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        // Ask for notification permission (Android 13+) then start the
+        // background order-monitoring service.
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU
+                && ContextCompat.checkSelfPermission(this, Manifest.permission.POST_NOTIFICATIONS)
+                   != PackageManager.PERMISSION_GRANTED) {
+            ActivityCompat.requestPermissions(
+                    this, new String[]{ Manifest.permission.POST_NOTIFICATIONS }, 101);
+        }
+        startOrderService();
 
         WebView webView = getBridge().getWebView();
 
@@ -60,5 +76,16 @@ public class MainActivity extends BridgeActivity {
                 }
             }
         });
+    }
+
+    private void startOrderService() {
+        try {
+            Intent svc = new Intent(this, OrderCheckService.class);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+                startForegroundService(svc);
+            } else {
+                startService(svc);
+            }
+        } catch (Exception ignored) {}
     }
 }
