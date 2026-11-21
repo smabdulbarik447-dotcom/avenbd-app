@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">Aven BD Admin</string>
+    <string name="title_activity_main">Aven BD Admin</string>
+    <string name="package_name">shop.avenbd.app</string>
+    <string name="custom_url_scheme">shop.avenbd.app</string>
+</resources>

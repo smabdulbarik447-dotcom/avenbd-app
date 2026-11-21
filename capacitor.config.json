@@ -1,0 +1,22 @@
+{
+  "appId": "shop.avenbd.app",
+  "appName": "Aven BD Admin",
+  "webDir": "www",
+  "server": {
+    "url": "https://www.avenbd.shop/admin",
+    "cleartext": false,
+    "allowNavigation": [
+      "*.avenbd.shop",
+      "avenbd.shop",
+      "*.bkash.com",
+      "*.sslcommerz.com",
+      "*.nagad.com.bd",
+      "*.facebook.com",
+      "*.google.com",
+      "accounts.google.com"
+    ]
+  },
+  "android": {
+    "allowMixedContent": false
+  }
+}
